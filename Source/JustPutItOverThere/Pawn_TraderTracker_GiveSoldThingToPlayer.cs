@@ -28,10 +28,19 @@ public static class Pawn_TraderTracker_GiveSoldThingToPlayer
         if (carrier.RaceProps.Animal)
         {
             JustPutItOverThere.LogMessage($"{carrier} is animal, looking for another");
-            carrier = inventory.pawn.GetLord().ownedPawns.Where(pawn =>
+            var currentCarrier = carrier;
+            var validCarrier = inventory.pawn.GetLord().ownedPawns.Where(pawn =>
                     !pawn.RaceProps.Animal && pawn.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation) &&
                     !pawn.CurJobDef.defName.ToLower().Contains("haul"))
-                .OrderBy(pawn => pawn.Position.DistanceTo(carrier.Position)).First();
+                .OrderBy(pawn => pawn.Position.DistanceTo(currentCarrier.Position));
+
+            if (!validCarrier.Any())
+            {
+                JustPutItOverThere.LogMessage("Could not find any free carriers");
+                return true;
+            }
+
+            carrier = validCarrier.First();
         }
 
         var positionHeld = toGive.PositionHeld;
