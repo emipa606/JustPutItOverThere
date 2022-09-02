@@ -1,5 +1,8 @@
 # Changelog for JustPutItOverThere
 
+1.3.2 - Now guests (normal and Hospitality) will try to leave any gifts in storage as well
+
+
 1.3.1 - Added check for when the amount of pawns in the caravan is fewer than required to carry all items
 
 
