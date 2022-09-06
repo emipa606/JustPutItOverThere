@@ -29,7 +29,14 @@ public static class Pawn_TraderTracker_GiveSoldThingToPlayer
         {
             JustPutItOverThere.LogMessage($"{carrier} is animal, looking for another");
             var currentCarrier = carrier;
-            var validCarrier = inventory.pawn.GetLord().ownedPawns.Where(pawn =>
+            var lord = inventory.pawn.GetLord();
+            if (lord.CurLordToil.ToString().ToLower().Contains("exitmap"))
+            {
+                JustPutItOverThere.LogMessage($"Current toil, {lord.CurLordToil}, does not allow staying around");
+                return true;
+            }
+
+            var validCarrier = lord.ownedPawns.Where(pawn =>
                     !pawn.RaceProps.Animal && pawn.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation) &&
                     !pawn.CurJobDef.defName.ToLower().Contains("haul"))
                 .OrderBy(pawn => pawn.Position.DistanceTo(currentCarrier.Position));

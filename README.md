@@ -6,6 +6,8 @@
 When making a trade-deal with a caravan, they will now try to place your bought items in storages instead of just dropping it on the ground.
 If there are no available storage space that they can reach the items will be left on the ground as normal.
 
+Guests will also try to leave any gifts in storage if possible. This includes guests from https://steamcommunity.com/sharedfiles/filedetails/?id=753498552]Hospitality as well.
+
 Idea by: ʟᴇɢɪᴏɴ
 	
 ![Image](https://i.imgur.com/O0IIlYj.png)
