@@ -1,5 +1,8 @@
 # Changelog for JustPutItOverThere
 
+1.3.4 - Uses a custom haul-logic to skip any overrides by mods like Pick Up And Haul
+
+
 1.3.3 - Caravan-members will not carry items if they are currently leaving the map.
 
 

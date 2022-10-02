@@ -31,7 +31,7 @@ public static class VisitorGiftForPlayerUtility_GiveGift
                 continue;
             }
 
-            var haulJob = HaulAIUtility.HaulToStorageJob(carrier, gift);
+            var haulJob = JustPutItOverThere.GetHaulJob(carrier, gift);
 
             if (haulJob == null)
             {

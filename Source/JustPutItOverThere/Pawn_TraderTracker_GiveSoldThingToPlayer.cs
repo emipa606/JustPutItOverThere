@@ -63,7 +63,7 @@ public static class Pawn_TraderTracker_GiveSoldThingToPlayer
             return false;
         }
 
-        var haulJob = HaulAIUtility.HaulToStorageJob(carrier, thing);
+        var haulJob = JustPutItOverThere.GetHaulJob(carrier, thing);
 
         if (haulJob == null)
         {
@@ -71,6 +71,7 @@ public static class Pawn_TraderTracker_GiveSoldThingToPlayer
             ___pawn.GetLord()?.extraForbiddenThings.Add(thing);
             return false;
         }
+
 
         carrier.jobs.TryTakeOrderedJob(haulJob, JobTag.UnspecifiedLordDuty);
         return false;
