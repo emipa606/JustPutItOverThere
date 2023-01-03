@@ -1,5 +1,8 @@
 # Changelog for JustPutItOverThere
 
+1.4.2 - The main trader will no longer move items, to avoid animals following inside the base.
+
+
 1.4.1 - Mod updated for 1.4 and passed autotests
 
 

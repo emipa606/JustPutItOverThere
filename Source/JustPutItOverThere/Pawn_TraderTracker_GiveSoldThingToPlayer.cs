@@ -38,7 +38,8 @@ public static class Pawn_TraderTracker_GiveSoldThingToPlayer
 
             var validCarrier = lord.ownedPawns.Where(pawn =>
                     !pawn.RaceProps.Animal && pawn.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation) &&
-                    !pawn.CurJobDef.defName.ToLower().Contains("haul"))
+                    !pawn.CurJobDef.defName.ToLower().Contains("haul") &&
+                    pawn.GetTraderCaravanRole() != TraderCaravanRole.Trader)
                 .OrderBy(pawn => pawn.Position.DistanceTo(currentCarrier.Position));
 
             if (!validCarrier.Any())
@@ -74,6 +75,7 @@ public static class Pawn_TraderTracker_GiveSoldThingToPlayer
 
 
         carrier.jobs.TryTakeOrderedJob(haulJob, JobTag.UnspecifiedLordDuty);
+        ___pawn.GetLord()?.extraForbiddenThings.Add(thing);
         return false;
     }
 }

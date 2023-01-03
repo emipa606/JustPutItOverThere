@@ -23,7 +23,7 @@
 
 When making a trade-deal with a caravan, they will now try to place your bought items in storages instead of just dropping it on the ground.
 If there are no available storage space that they can reach the items will be left on the ground as normal.
-Also, if the caravan i currently leaving the map, items will be left on the ground.
+Also, if the caravan is currently leaving the map, items will be left on the ground.
 
 Guests will also try to leave any gifts in storage if possible. This includes guests from [url=https://steamcommunity.com/sharedfiles/filedetails/?id=753498552]Hospitality[/url] as well.
 
@@ -55,5 +55,6 @@ Since modding is just a hobby for me I expect no donations to keep modding. If y
 [*] If you have the solution for a problem, please post it to the GitHub repository.
 [/list]
 
-</description>
+
+[url=https://steamcommunity.com/sharedfiles/filedetails/changelog/2856471776]Last updated 2023-01-03[/url]</description>
 </ModMetaData>
