@@ -1,5 +1,8 @@
 # Changelog for JustPutItOverThere
 
+1.4.3 - Fixed an issue when trading a slave to a trader
+
+
 1.4.2 - The main trader will no longer move items, to avoid animals following inside the base.
 
 

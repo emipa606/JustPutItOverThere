@@ -37,8 +37,9 @@ public static class Pawn_TraderTracker_GiveSoldThingToPlayer
             }
 
             var validCarrier = lord.ownedPawns.Where(pawn =>
-                    !pawn.RaceProps.Animal && pawn.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation) &&
-                    !pawn.CurJobDef.defName.ToLower().Contains("haul") &&
+                    !pawn.RaceProps.Animal &&
+                    pawn.health?.capacities?.CapableOf(PawnCapacityDefOf.Manipulation) == true &&
+                    !pawn.CurJobDef?.defName.ToLower().Contains("haul") == true &&
                     pawn.GetTraderCaravanRole() != TraderCaravanRole.Trader)
                 .OrderBy(pawn => pawn.Position.DistanceTo(currentCarrier.Position));
 
@@ -56,11 +57,11 @@ public static class Pawn_TraderTracker_GiveSoldThingToPlayer
         var thing = toGive.SplitOff(countToGive);
         thing.PreTraded(TradeAction.PlayerBuys, playerNegotiator, ___pawn);
         GenPlace.TryPlaceThing(thing, positionHeld, mapHeld, ThingPlaceMode.Near);
+        ___pawn.GetLord()?.extraForbiddenThings.Add(thing);
 
         if (!carrier.CanReserveAndReach(thing, PathEndMode.ClosestTouch, carrier.NormalMaxDanger()))
         {
             JustPutItOverThere.LogMessage($"{carrier} can not CanReserveAndReach item, aborting");
-            ___pawn.GetLord()?.extraForbiddenThings.Add(thing);
             return false;
         }
 
@@ -69,13 +70,12 @@ public static class Pawn_TraderTracker_GiveSoldThingToPlayer
         if (haulJob == null)
         {
             JustPutItOverThere.LogMessage($"{carrier} could not generate haul-job");
-            ___pawn.GetLord()?.extraForbiddenThings.Add(thing);
-            return false;
+        }
+        else
+        {
+            carrier.jobs.TryTakeOrderedJob(haulJob, JobTag.UnspecifiedLordDuty);
         }
 
-
-        carrier.jobs.TryTakeOrderedJob(haulJob, JobTag.UnspecifiedLordDuty);
-        ___pawn.GetLord()?.extraForbiddenThings.Add(thing);
         return false;
     }
 }
