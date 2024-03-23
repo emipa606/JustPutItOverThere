@@ -1,5 +1,8 @@
 # Changelog for JustPutItOverThere
 
+1.5.0 - Mod updated for 1.5 and passed autotests
+
+
 1.4.3 - Fixed an issue when trading a slave to a trader
 
 
