@@ -7,7 +7,7 @@ using Verse.AI.Group;
 
 namespace JustPutItOverThere;
 
-[HarmonyPatch(typeof(Pawn_TraderTracker), "GiveSoldThingToPlayer")]
+[HarmonyPatch(typeof(Pawn_TraderTracker), nameof(Pawn_TraderTracker.GiveSoldThingToPlayer))]
 public static class Pawn_TraderTracker_GiveSoldThingToPlayer
 {
     public static bool Prefix(ref Thing toGive, int countToGive, Pawn playerNegotiator, Pawn ___pawn)
@@ -41,7 +41,7 @@ public static class Pawn_TraderTracker_GiveSoldThingToPlayer
                     pawn.health?.capacities?.CapableOf(PawnCapacityDefOf.Manipulation) == true &&
                     !pawn.CurJobDef?.defName.ToLower().Contains("haul") == true &&
                     pawn.GetTraderCaravanRole() != TraderCaravanRole.Trader)
-                .OrderBy(pawn => pawn.Position.DistanceTo(currentCarrier.Position));
+                .OrderBy(pawn => pawn.Position.DistanceTo(currentCarrier.Position)).ToArray();
 
             if (!validCarrier.Any())
             {

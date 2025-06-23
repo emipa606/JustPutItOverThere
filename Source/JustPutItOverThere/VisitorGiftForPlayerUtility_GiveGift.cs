@@ -7,7 +7,7 @@ using Verse.AI;
 
 namespace JustPutItOverThere;
 
-[HarmonyPatch(typeof(VisitorGiftForPlayerUtility), "GiveGift")]
+[HarmonyPatch(typeof(VisitorGiftForPlayerUtility), nameof(VisitorGiftForPlayerUtility.GiveGift))]
 public static class VisitorGiftForPlayerUtility_GiveGift
 {
     public static void Postfix(List<Pawn> possibleGivers, List<Thing> gifts)
@@ -17,7 +17,7 @@ public static class VisitorGiftForPlayerUtility_GiveGift
             var validCarrier = possibleGivers.Where(pawn =>
                     !pawn.RaceProps.Animal && pawn.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation) &&
                     !pawn.CurJobDef.defName.ToLower().Contains("haul"))
-                .OrderBy(pawn => pawn.Position.DistanceTo(gift.Position));
+                .OrderBy(pawn => pawn.Position.DistanceTo(gift.Position)).ToArray();
             if (!validCarrier.Any())
             {
                 JustPutItOverThere.LogMessage("Could not find any free carriers");
