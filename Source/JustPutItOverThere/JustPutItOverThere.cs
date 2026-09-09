@@ -6,7 +6,7 @@ using Verse.AI;
 namespace JustPutItOverThere;
 
 [StaticConstructorOnStartup]
-public class JustPutItOverThere
+public static class JustPutItOverThere
 {
     static JustPutItOverThere()
     {
@@ -15,17 +15,20 @@ public class JustPutItOverThere
 
     public static void LogMessage(string message)
     {
-#if DEBUG
-        Log.Message($"[JustPutItOverThere]: {message}");
-#endif
+        if (Prefs.DevMode)
+        {
+            Log.Message($"[JustPutItOverThere]: {message}");
+        }
     }
 
     public static Job GetHaulJob(Pawn p, Thing t)
     {
         var currentPriority = StoreUtility.CurrentStoragePriorityOf(t);
-        if (!StoreUtility.TryFindBestBetterStorageFor(t, p, p.Map, currentPriority, p.Faction, out var storeCell,
+        if (!StoreUtility.TryFindBestBetterStorageFor(t, p, p.Map, currentPriority, Faction.OfPlayer, out var storeCell,
                 out var haulDestination))
         {
+            LogMessage(
+                $"Could not find better storage for {t}, current priority={currentPriority}, storeCell={storeCell}, haulDestination={haulDestination}");
             JobFailReason.Is(HaulAIUtility.NoEmptyPlaceLowerTrans);
             return null;
         }

@@ -24,7 +24,7 @@ public static class VisitorGiftForPlayerUtility_GiveGift
                 return;
             }
 
-            var carrier = validCarrier.First();
+            var carrier = validCarrier[0];
             if (!carrier.CanReserveAndReach(gift, PathEndMode.ClosestTouch, carrier.NormalMaxDanger()))
             {
                 JustPutItOverThere.LogMessage($"{carrier} can not CanReserveAndReach {gift}, aborting");

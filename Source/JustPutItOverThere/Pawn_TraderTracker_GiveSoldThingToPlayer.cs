@@ -36,6 +36,9 @@ public static class Pawn_TraderTracker_GiveSoldThingToPlayer
                 return true;
             }
 
+            JustPutItOverThere.LogMessage(
+                $"Current toil, {lord.CurLordToil}, allows staying around, looking for another carrier");
+
             var validCarrier = lord.ownedPawns.Where(pawn =>
                     !pawn.RaceProps.Animal &&
                     pawn.health?.capacities?.CapableOf(PawnCapacityDefOf.Manipulation) == true &&
@@ -49,7 +52,7 @@ public static class Pawn_TraderTracker_GiveSoldThingToPlayer
                 return true;
             }
 
-            carrier = validCarrier.First();
+            carrier = validCarrier[0];
         }
 
         var positionHeld = toGive.PositionHeld;
