@@ -1,36 +1,48 @@
-# GitHub Copilot Instructions for "Just Put It Over There" RimWorld Mod
+# GitHub Copilot Instructions for "Just Put It Over There" Mod
 
 ## Mod Overview and Purpose
-The "Just Put It Over There" mod enhances the quality of life for players in RimWorld by optimizing the placement of traded items and gifts. After a trade is completed with a caravan, this mod ensures that the purchased items are placed into designated storage areas instead of being left on the ground. This functionality is contingent on the availability of accessible storage space. If no such space is available, or if the caravan is leaving the map, items will remain on the ground as usual. Additionally, when guests leave gifts, they will attempt to place them in storage, which includes interactions with the Hospitality mod if installed.
+
+"Just Put It Over There" is a RimWorld mod designed to enhance the trading and gifting experience within the game. When players make a trade deal with a caravan, the mod ensures that the items purchased are placed into storage areas rather than simply being dropped on the ground. This adds a layer of realism and convenience, as players no longer have to manually haul items to their storage spaces.
+
+The functionality extends to guests leaving presents. If there is available storage space, visitors will store their gifts instead of leaving them on the floor. This feature also supports integration with the "Hospitality" mod, ensuring seamless interaction with guest behavior.
 
 ## Key Features and Systems
-- Automatic placement of traded items into player-designed storage areas when available.
-- Effective fallbacks to ground placement when storage is unreachable or maps are being exited.
-- Support for guest interaction, integrating with the Hospitality mod to enhance guest gifting behavior.
+
+- **Trade Enhancement:** Caravans attempt to place bought goods directly into accessible storage spaces.
+- **Gift Storage:** Ensure that any gifts from guests are stored appropriately if possible.
+- **Seamless Integration:** Works in conjunction with "Hospitality" mod for improved guest interactions.
+- **Fallback Handling:** Items are left on the ground if storage is unavailable or if the caravan is leaving.
 
 ## Coding Patterns and Conventions
-- **Namespace Usage:** The mod's code is encapsulated within a namespace that reflects the mod's name, maintaining organization and preventing potential class name conflicts.
-- **Class Names:** Each class name is descriptive of its responsibility, e.g., `VisitorGiftForPlayerUtility_GiveGift` and `Pawn_TraderTracker_GiveSoldThingToPlayer`.
-- **Method Conventions:** Public methods are PascalCase and aim to clearly describe their functionality, with examples like `GetHaulJob` and `LogMessage`.
-- **Logging and Messaging:** Helper methods such as `LogMessage` are utilized for clean and consistent debug information logging.
+
+- **C# Conventions:**
+  - Use PascalCase for class and method names.
+  - Use camelCase for local variables and method parameters.
+  - Ensure clear and descriptive names for methods and variables.
+  - Maintain concise and informative comments to describe the purpose and functionality of key methods.
 
 ## XML Integration
-While the current iteration of "Just Put It Over There" doesn't involve direct XML definitions, consider these practices for future XML integrations:
-- **Def Naming:** Use clear, descriptive names for definitions that reflect their purpose and link succinctly with C# code functionality.
-- **Integration Points:** Leverage XML to define mod settings, which can be surfaced easily via language data types tie-ins.
+
+This mod does not currently include any XML files for RimWorld definition types. Future XML integrations might involve custom storage or item definitions.
 
 ## Harmony Patching
-The mod employs Harmony for runtime patching, allowing changes without altering base game files:
-- **Prefix and Postfix Methods:** C# methods such as `Prefix` and `Postfix` are used for injecting logic before and after standard game flow executions.
-- **Robust Patching:** Ensure that methods are patched securely, performing condition checks and implementing try-catch blocks where possible to maintain game stability.
 
-## Suggestions for Copilot
-1. **Refactoring Opportunities:** Use Copilot to identify classes or methods that might benefit from refactoring into smaller, more manageable components to improve readability.
-2. **Automatic Error Checks:** Employ Copilot to automate error-checking patterns within Harmony patches to preemptively address common issues.
-3. **Code Documentation:** Leverage suggestions for XML comments and inline documentation to maintain the clarity of code logic and anticipated uses.
-4. **Edge Case Handling:** Utilize Copilot's recommendations to cover edge cases for item placement and guest behaviours, ensuring comprehensive feature coverage.
+- **Dependencies:** The mod relies on Harmony for method patching. Ensure `Harmony` dependency (`brrainz.harmony`) is included in your project references.
+  
+- **Patches:**
+  - **Pawn_TraderTracker_GiveSoldThingToPlayer.cs:** Includes `Prefix` patch to modify the behavior of item placement during trades.
+  - **VisitorGiftForPlayerUtility_GiveGift.cs:** Utilizes a `Postfix` patch to alter guest behavior when leaving gifts.
 
-By adhering to the outlined practices and utilizing GitHub Copilot's intelligent coding assistance, contributors can maintain and enhance the "Just Put It Over There" mod efficiently and effectively.
+- **Usage:** Leverage Harmony's patching capabilities to intercept and modify base game methods without altering core game files. This allows for improved mod compatibility and maintainability.
+
+## Suggestions for GitHub Copilot
+
+1. **Code Suggestions:** Use Copilot to generate boilerplate code for Harmony patches, such as the `Prefix` and `Postfix` methods.
+2. **Edge Cases:** Explore additional error-handling logic for scenarios where storage might be dynamically altered during a trade.
+3. **Performance Optimizations:** Use Copilot to suggest refactoring opportunities to improve performance, such as optimizing storage search algorithms.
+4. **Future Features:** Suggest possible features or enhancements, such as prioritizing types of storage or implementing more detailed logging.
+
+By following these guidelines and utilizing GitHub Copilot effectively, you can enhance the quality and functionality of the "Just Put It Over There" mod. Happy modding!
 
 ## Project Solution Guidelines
 - Relevant mod XML files are included as Solution Items under the solution folder named XML, these can be read and modified from within the solution.
@@ -44,4 +56,6 @@ By adhering to the outlined practices and utilizing GitHub Copilot's intelligent
 ## Hard rules (must follow)
 - Do NOT run commands that modify the repo (no git commit, git apply, dotnet format) unless explicitly asked.
 - Prefer minimal reads: read only the smallest code region needed (around the suspicious lines).
+- When mentioning SonarQube issues, automatically use the SonarQube MCP service to fetch and address issues instead of making inferred fixes without querying SonarQube first.
+- When mentioning the rimworld log, automatically use the Rimworld MCP service to fetch the log.
 
